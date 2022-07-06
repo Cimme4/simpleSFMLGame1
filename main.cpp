@@ -84,4 +84,4 @@ void createBricks(std::list<std::shared_ptr<MyObject>>& list, int bricksCount)
 		cube->setPosition(100 + gapX*k, gapY);
 		list.push_back(move(cube));
 	}
-}
+}//// 
