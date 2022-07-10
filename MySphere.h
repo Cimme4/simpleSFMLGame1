@@ -17,7 +17,7 @@ public:
 	virtual void Update() override;
 	virtual void move(sf::Vector2f&) override;
 	virtual void setPosition(float x, float y) override;
-	void checkCollisionWithObject(std::shared_ptr<MyObject>& object) override;
+	void checkCollisionWithObject(std::weak_ptr<MyObject>& object);
 	const sf::CircleShape &GetSphereRefRect() const & { return sphereRect; }
 	sf::CircleShape GetSphereRefRect() && { return std::move(sphereRect); }
 };

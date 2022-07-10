@@ -10,12 +10,11 @@
 using namespace sf; 
 
 
-void createBricks(std::list<std::shared_ptr<MyObject>>& list, int bricksCount);
+void createBricks(std::list<std::shared_ptr<MyObject>>& list, int bricksCount, std::shared_ptr<MyObject>& ball);
 int main()
 {
 	enum { NORMAL, DEAD };
 	std::srand(static_cast<unsigned int>(std::time(NULL)));
-	bool isPlaying = false;
 
 	ContextSettings settings;
 	settings.antialiasingLevel = 8;
@@ -26,18 +25,18 @@ int main()
 	window.setFramerateLimit(60);
 	auto bg = std::make_unique<MyObject>("bg.jpg");
 	bg->setPosition(0, 0);
+
 	std::list<std::shared_ptr<MyObject>> objects;
-
-	auto player = MyObject::createObject(MyObject::Object_ID::Player);
-	player->setPosition(gameWidth/2 - player->getSprite().getTextureRect().width/2, gameHeight - 100);
-	objects.push_back(player);
-
 	auto ball = MyObject::createObject(MyObject::Object_ID::Ball);
 	ball->setPosition(gameWidth / 2 - ball->getSprite().getTextureRect().width / 2, gameHeight / 2 - ball->getSprite().getTextureRect().height / 2);
 	objects.push_back(ball);
 	
+	auto player = MyObject::createObservableObject(MyObject::Object_ID::Player, ball);
+	player->setPosition(gameWidth/2 - player->getSprite().getTextureRect().width/2, gameHeight - 100);
+	objects.push_back(player);
+	
 	int bricksCount = 30;
-	createBricks(objects, bricksCount);
+	createBricks(objects, bricksCount, ball);
 
 	while (window.isOpen()) {
 		sf::Event event;		
@@ -49,6 +48,7 @@ int main()
 			}
 			window.clear(sf::Color(0, 0, 0));
 			bg->Draw(window);
+
 			auto remove = objects.end();
 			for (auto it = objects.begin(); it != objects.end(); ++it) {
 				if ((*it)->getState() == DEAD) {
@@ -56,8 +56,7 @@ int main()
 				}
 				else {
 					(*it)->Draw(window);
-					(*it)->Update();
-					ball->checkCollisionWithObject(*it);					
+					(*it)->Update();					
 				}
 				if (ball->getState() == DEAD) {
 					window.close();
@@ -71,12 +70,12 @@ int main()
 }
 
 
-void createBricks(std::list<std::shared_ptr<MyObject>>& list, int bricksCount)
+void createBricks(std::list<std::shared_ptr<MyObject>>& list, int bricksCount, std::shared_ptr<MyObject> &ball)
 {
 	float gapX = 85;
 	float gapY = 30;
 	for (int i = 0, k = 0; i < bricksCount; ++i, ++k) {
-		auto cube = MyObject::createObject(MyObject::Brick);
+		auto cube = MyObject::createObservableObject(MyObject::Brick, ball);
 		if (k >= 10) {
 			gapY += 45;
 			k = 0;
@@ -84,4 +83,4 @@ void createBricks(std::list<std::shared_ptr<MyObject>>& list, int bricksCount)
 		cube->setPosition(100 + gapX*k, gapY);
 		list.push_back(move(cube));
 	}
-}//// 
+}

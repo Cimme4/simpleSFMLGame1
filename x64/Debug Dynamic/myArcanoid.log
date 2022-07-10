@@ -4,20 +4,16 @@
   Скопировано файлов:         1.
   Скопировано файлов:         1.
   Скопировано файлов:         1.
-  Подпапка или файл D:\SFMLHUETA\myArcanoid\x64\Debug Dynamic\resources уже существует.
-  D:\SFMLHUETA\myArcanoid\resources\ball.wav
-  D:\SFMLHUETA\myArcanoid\resources\sansation.ttf
+  Подпапка или файл D:\sfmlProjects\work\simpleSFMLGame1\x64\Debug Dynamic\resources уже существует.
+  D:\sfmlProjects\work\simpleSFMLGame1\resources\ball.wav
+  D:\sfmlProjects\work\simpleSFMLGame1\resources\sansation.ttf
   Скопировано файлов:         2.
   MySphere.cpp
-d:\sfmlhueta\myarcanoid\mysphere.h(3): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
-d:\sfmlhueta\myarcanoid\mysphere.cpp(12): warning C4244: аргумент: преобразование "float" в "T", возможна потеря данных
+d:\sfmlprojects\work\simplesfmlgame1\mysphere.h(3): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
+d:\sfmlprojects\work\simplesfmlgame1\mysphere.cpp(12): warning C4244: аргумент: преобразование "float" в "T", возможна потеря данных
           with
           [
               T=int
           ]
-d:\sfmlhueta\myarcanoid\mysphere.cpp(14): warning C4244: =: преобразование "double" в "float", возможна потеря данных
-  main.cpp
-d:\sfmlhueta\myarcanoid\main.cpp(32): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-d:\sfmlhueta\myarcanoid\main.cpp(36): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-  Создание кода...
-  myArcanoid.vcxproj -> D:\SFMLHUETA\myArcanoid\x64\Debug Dynamic\myArcanoid.exe
+d:\sfmlprojects\work\simplesfmlgame1\mysphere.cpp(14): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+  myArcanoid.vcxproj -> D:\sfmlProjects\work\simpleSFMLGame1\x64\Debug Dynamic\myArcanoid.exe

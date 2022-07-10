@@ -15,6 +15,7 @@ protected:
 	FloatRect fRect;
 	Vector2f position;
 	std::string id;
+	std::vector<std::weak_ptr<MyObject>> views;
 public:
 	enum Object_ID {
 		Ball,
@@ -22,6 +23,7 @@ public:
 		Player
 	};
 	static std::shared_ptr<MyObject> createObject(Object_ID id);
+	static std::shared_ptr<MyObject> createObservableObject(Object_ID object, std::shared_ptr<MyObject> &Observer);
 
 	MyObject();
 	MyObject(std::string path);
@@ -31,7 +33,7 @@ public:
 	virtual void move(Vector2f& offset);
 	virtual void setPosition(Vector2f& pos);
 	virtual void setPosition(float x, float y);
-	virtual void checkCollisionWithObject(std::shared_ptr<MyObject>& object);
+	virtual void attach(std::weak_ptr<MyObject> obs) { views.push_back(obs); }
 
 	void Draw(RenderWindow& window);
 	void changeState(LifeState pState) { state = pState;}
@@ -45,5 +47,6 @@ public:
 	std::string getId()&& { return std::move(id); }
 	
 	const FloatRect &getFRect() const & { return fRect; }
-	FloatRect getFRect()&& { return std::move(fRect); }
+	FloatRect getFRect() && { return std::move(fRect); }
+	FloatRect getValueRect() { return fRect;  }
 };

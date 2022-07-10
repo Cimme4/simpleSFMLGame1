@@ -44,7 +44,9 @@ void MySphere::Update()
 	if (sphereRect.getPosition().y + sphereRect.getRadius() >= 768) {
 		state = MyObject::LifeState::DEAD;
 	}
-
+	for (auto& it : views) {
+		checkCollisionWithObject(it);
+	}
 }
 
 
@@ -60,19 +62,21 @@ void MySphere::setPosition(float x, float y)
 	sphereRect.setPosition(x, y);
 }
 
-void MySphere::checkCollisionWithObject(std::shared_ptr<MyObject>& object)
+void MySphere::checkCollisionWithObject(std::weak_ptr<MyObject>& object)	
 {
-	if (object->getId() == "player") {
-		if (sphereRect.getGlobalBounds().intersects(object->getFRect())) {
-			direction.y *= -1;
-			ballSound.play();
+	if (object.lock()) {
+		if (object.lock()->getId() == "player") {
+			if (sphereRect.getGlobalBounds().intersects(object.lock()->getValueRect())) {
+				direction.y *= -1;
+				ballSound.play();
+			}
 		}
-	}
-	if (object->getId() == "brick") {
-		if (sphereRect.getGlobalBounds().intersects(object->getFRect())) {
-			direction.y *= -1;
-			ballSound.play();
-			object->changeState(MyObject::LifeState::DEAD);
+		if (object.lock()->getId() == "brick") {
+			if (sphereRect.getGlobalBounds().intersects(object.lock()->getValueRect())) {
+				direction.y *= -1;
+				ballSound.play();
+				object.lock()->changeState(MyObject::LifeState::DEAD);
+			}
 		}
 	}
 }
